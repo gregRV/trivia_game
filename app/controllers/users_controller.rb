@@ -9,7 +9,7 @@ class UsersController < ApplicationController
 			flash[:success] = "Sign up successful!"
 			redirect_to @user
 		else
-			flash[:danger] = "Sign up failed."
+			flash.now[:error] = "Sign up failed."
 			render 'new'
 		end
 	end
