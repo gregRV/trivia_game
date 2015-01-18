@@ -1,0 +1,8 @@
+<h1>Create a Deck</h1>
+
+<%= form_for [@user, @deck] do |f| %>
+	<%= f.label :name %>
+	<%= f.text_field :name %>
+
+	<%= f.submit "Create Deck" %>
+<% end %>
