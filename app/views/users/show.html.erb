@@ -3,5 +3,8 @@
 
 <%= link_to "Create a Deck", new_user_deck_path(@user) %>
 
-<%= link_to "Log out", logout_path, method: 'delete' %>
-
+<ul>
+	<% @user.decks.each do |d| %>
+		<li><%= link_to "#{d.name}", user_deck_path(@user, d) %></li>
+	<% end %>
+</ul>
