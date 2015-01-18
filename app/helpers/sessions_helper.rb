@@ -6,4 +6,8 @@ module SessionsHelper
 	def logged_in?
 		!current_user.nil?
 	end
+
+	def require_login
+		redirect_to login_url, notice: "You must log in first" unless logged_in?
+	end
 end

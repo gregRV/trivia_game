@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+	before_action :require_login, except: [:new, :create]
+
 	def new
 		@user = User.new
 	end
@@ -6,8 +8,8 @@ class UsersController < ApplicationController
 	def create
 		@user = User.new(user_params)
 		if @user.save
-			flash[:success] = "Sign up successful!"
-			redirect_to @user
+			session[:user_id] = @user.id
+			redirect_to @user, flash: {success: 'Sign up successful!'}
 		else
 			flash.now[:error] = "Sign up failed."
 			render 'new'
