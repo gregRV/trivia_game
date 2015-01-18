@@ -1,5 +1,6 @@
 class DecksController < ApplicationController
 	before_action :require_login, except: [:new, :create]
+	before_action :correct_user
 
 	def new
 		@user = current_user
@@ -44,4 +45,10 @@ class DecksController < ApplicationController
 	def deck_params
 		params.require(:deck).permit(:name)
 	end
+
+	# Confirms the correct user.
+  def correct_user
+    @user = User.find(params[:user_id])
+    redirect_to root_url, notice: "Can't access others' Decks" unless current_user?(@user)
+  end
 end

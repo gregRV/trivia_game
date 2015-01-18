@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
 	before_action :require_login, except: [:new, :create]
+	before_action :correct_user, 	except: [:new, :create, :show]
 
 	def new
 		@user = User.new
@@ -25,4 +26,10 @@ class UsersController < ApplicationController
 	def user_params
 		params.require(:user).permit(:name, :email, :password, :password_confirmation)
 	end
+
+	# Confirms the correct user.
+  def correct_user
+    @user = User.find(params[:id])
+    redirect_to root_url, notice: "No access for you." unless current_user?(@user)
+  end
 end
