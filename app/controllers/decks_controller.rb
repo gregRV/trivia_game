@@ -16,6 +16,22 @@ class DecksController < ApplicationController
 		@deck = Deck.find(params[:id])
 	end
 
+	def edit
+		@deck = Deck.find(params[:id])
+		@user = User.find(@deck.user_id)
+	end
+
+	def update
+		@deck = Deck.find(params[:id])
+		@user = User.find(@deck.user_id)
+		if @deck.update(deck_params)
+			redirect_to user_deck_url(@user, @deck), flash: {success: "Updated Deck"}
+		else
+			flash.now[:notice] = "Failed to update Deck"
+			render 'edit'
+		end
+	end
+
 	private
 
 	def deck_params
