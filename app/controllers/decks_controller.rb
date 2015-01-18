@@ -32,6 +32,11 @@ class DecksController < ApplicationController
 		end
 	end
 
+	def destroy
+		Deck.destroy(params[:id]) ? (flash[:notice] = "Deleted Deck") : (flash[:notice] = "Failed to delete Deck")
+		redirect_to user_url(params[:user_id])
+	end
+
 	private
 
 	def deck_params
